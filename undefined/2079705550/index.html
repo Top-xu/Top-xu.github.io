@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="xss-analyze故事的来源，微信群里发出一段xss payload，碍于我没有见过这种符号，看不懂，故分析 Xss-payload，来自于推特  12345𓅂&#x3D;&#39;&#39;,𓂀&#x3D;!𓅂+𓅂,𓁄&#x3D;!𓂀+𓅂,𓊎&#x3D;𓅂+&amp;#123;&amp;#125;,𓆣&#x3D;𓂀[𓅂++],𓊝&#x3D;𓂀[𓇎&#x3D;𓅂],𓏢&amp;#x3">
+<meta name="description" content="xss-analyze故事的来源，微信群里发出一段xss payload，碍于我没有见过这种符号，看不懂，故分析 Xss-payload，来自于推特">
 <meta property="og:type" content="article">
 <meta property="og:title" content="xss analyze">
 <meta property="og:url" content="https://top-xu.github.io/undefined/2079705550/index.html">
 <meta property="og:site_name" content="sec eng">
-<meta property="og:description" content="xss-analyze故事的来源，微信群里发出一段xss payload，碍于我没有见过这种符号，看不懂，故分析 Xss-payload，来自于推特  12345𓅂&#x3D;&#39;&#39;,𓂀&#x3D;!𓅂+𓅂,𓁄&#x3D;!𓂀+𓅂,𓊎&#x3D;𓅂+&amp;#123;&amp;#125;,𓆣&#x3D;𓂀[𓅂++],𓊝&#x3D;𓂀[𓇎&#x3D;𓅂],𓏢&amp;#x3">
+<meta property="og:description" content="xss-analyze故事的来源，微信群里发出一段xss payload，碍于我没有见过这种符号，看不懂，故分析 Xss-payload，来自于推特">
 <meta property="og:image" content="https://top-xu.github.io/undefined/2079705550/xss_2019_5_20.png">
 <meta property="og:image" content="https://top-xu.github.io/undefined/2079705550/xss_2019_5_20_1.png">
 <meta property="og:image" content="https://top-xu.github.io/undefined/2079705550/1.png">
 <meta property="og:image" content="https://top-xu.github.io/undefined/2079705550/xss_2020-05-20_2.png">
 <meta property="og:image" content="https://top-xu.github.io/undefined/2079705550/xss_2020-05-20_3.png">
 <meta property="article:published_time" content="2020-05-20T06:40:04.000Z">
-<meta property="article:modified_time" content="2020-05-22T21:22:14.524Z">
+<meta property="article:modified_time" content="2020-05-22T21:27:53.219Z">
 <meta property="article:author" content="luckyX">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://top-xu.github.io/undefined/2079705550/xss_2019_5_20.png">
@@ -306,6 +306,8 @@
       
         <h3 id="xss-analyze"><a href="#xss-analyze" class="headerlink" title="xss-analyze"></a>xss-analyze</h3><p>故事的来源，微信群里发出一段xss payload，碍于我没有见过这种符号，看不懂，故分析</p>
 <p>Xss-payload，来自于推特</p>
+<a id="more"></a>
+
 <p><img src="https://top-xu.github.io/undefined/2079705550/xss_2019_5_20.png" alt="xss_2019_5_20"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">𓅂&#x3D;&#39;&#39;,𓂀&#x3D;!𓅂+𓅂,𓁄&#x3D;!𓂀+𓅂,𓊎&#x3D;𓅂+&#123;&#125;,𓆣&#x3D;𓂀</span><br><span class="line">[𓅂++],𓊝&#x3D;𓂀[𓇎&#x3D;𓅂],𓏢&#x3D;++𓇎+𓅂,𓆗&#x3D;𓊎[𓇎+𓏢</span><br><span class="line">],𓂀[𓆗+&#x3D;𓊎[𓅂]+(𓂀.𓁄+𓊎)[𓅂]+𓁄[𓏢]+𓆣+</span><br><span class="line">𓊝+𓂀[𓇎]+𓆗+𓆣+𓊎[𓅂]+𓊝][𓆗](𓁄[𓅂]+𓁄[</span><br><span class="line">𓇎]+𓂀[𓏢]+𓊝+𓆣+&#39;&#96;𓅂 𓏢 𓂀 𓁄 𓆣 𓊝 𓇎&#96;&#39;)&#96;&#96;</span><br></pre></td></tr></table></figure>
 
