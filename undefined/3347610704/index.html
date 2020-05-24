@@ -79,22 +79,21 @@
 
 
 
-<meta name="description" content="xss-analyze故事的来源，微信群里发出一段xss payload，碍于我没有见过这种符号，看不懂，故分析 Xss-payload，来自于推特">
+<meta name="description" content="​      为什么会记录HSTS，是因为我在做nginx代理服务器时，我做了重定向，但是还是存在某些浏览器访问，不进行跳转。  nginx 80端口 配置如下： 123456789server &amp;#123;        listen 80;    listen [::]:80;    server_name _;    location &#x2F; &amp;#123;        return">
 <meta property="og:type" content="article">
-<meta property="og:title" content="xss analyze">
-<meta property="og:url" content="https://top-xu.github.io/undefined/2079705550/index.html">
+<meta property="og:title" content="HTTP Strict Transport Security">
+<meta property="og:url" content="https://top-xu.github.io/undefined/3347610704/index.html">
 <meta property="og:site_name" content="sec eng">
-<meta property="og:description" content="xss-analyze故事的来源，微信群里发出一段xss payload，碍于我没有见过这种符号，看不懂，故分析 Xss-payload，来自于推特">
-<meta property="og:image" content="https://gitee.com/top-xu/imgaes/raw/master/20200523160517.png">
-<meta property="og:image" content="https://gitee.com/top-xu/imgaes/raw/master/20200523160539.png">
-<meta property="og:image" content="https://gitee.com/top-xu/imgaes/raw/master/20200523160547.png">
-<meta property="og:image" content="https://gitee.com/top-xu/imgaes/raw/master/20200523160556.png">
-<meta property="og:image" content="https://gitee.com/top-xu/imgaes/raw/master/20200523160604.png">
-<meta property="article:published_time" content="2020-05-20T06:40:04.000Z">
-<meta property="article:modified_time" content="2020-05-23T08:06:10.976Z">
+<meta property="og:description" content="​      为什么会记录HSTS，是因为我在做nginx代理服务器时，我做了重定向，但是还是存在某些浏览器访问，不进行跳转。  nginx 80端口 配置如下： 123456789server &amp;#123;        listen 80;    listen [::]:80;    server_name _;    location &#x2F; &amp;#123;        return">
+<meta property="og:image" content="https://gitee.com/top-xu/imgaes/raw/master/20200524223948.png">
+<meta property="og:image" content="https://gitee.com/top-xu/imgaes/raw/master/20200524233202.png">
+<meta property="og:image" content="https://gitee.com/top-xu/imgaes/raw/master/20200524231434.png">
+<meta property="og:image" content="https://gitee.com/top-xu/imgaes/raw/master/20200524231512.png">
+<meta property="article:published_time" content="2020-05-24T14:23:32.000Z">
+<meta property="article:modified_time" content="2020-05-24T15:34:52.638Z">
 <meta property="article:author" content="luckyX">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/top-xu/imgaes/raw/master/20200523160517.png">
+<meta name="twitter:image" content="https://gitee.com/top-xu/imgaes/raw/master/20200524223948.png">
 
 
 
@@ -124,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="https://top-xu.github.io/undefined/2079705550/"/>
+  <link rel="canonical" href="https://top-xu.github.io/undefined/3347610704/"/>
 
 
 
 
 
-  <title>xss analyze | sec eng</title>
+  <title>HTTP Strict Transport Security | sec eng</title>
   
 
 
@@ -237,7 +236,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://top-xu.github.io/undefined/2079705550/">
+    <link itemprop="mainEntityOfPage" href="https://top-xu.github.io/undefined/3347610704/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luckyX">
@@ -254,7 +253,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">xss analyze</h1>
+          <h1 class="post-title" itemprop="name headline">HTTP Strict Transport Security</h1>
         
 
         <div class="post-meta">
@@ -266,8 +265,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-20T14:40:04+08:00">
-                2020-05-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-24T22:23:32+08:00">
+                2020-05-24
               </time>
             
 
@@ -304,29 +303,22 @@
       
 
       
-        <h3 id="xss-analyze"><a href="#xss-analyze" class="headerlink" title="xss-analyze"></a>xss-analyze</h3><p>故事的来源，微信群里发出一段xss payload，碍于我没有见过这种符号，看不懂，故分析</p>
-<p>Xss-payload，来自于推特</p>
-<a id="more"></a>
+        <p>​      为什么会记录HSTS，是因为我在做nginx代理服务器时，我做了重定向，但是还是存在某些浏览器访问，不进行跳转。</p>
+<p> nginx 80端口 配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen 80;</span><br><span class="line">    listen [::]:80;</span><br><span class="line"></span><br><span class="line">    server_name _;</span><br><span class="line"></span><br><span class="line">    location &#x2F; &#123;</span><br><span class="line">        return 301 https:&#x2F;&#x2F;$http_host$request_uri;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://gitee.com/top-xu/imgaes/raw/master/20200523160517.png" alt="xss_2019_5_20"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">𓅂&#x3D;&#39;&#39;,𓂀&#x3D;!𓅂+𓅂,𓁄&#x3D;!𓂀+𓅂,𓊎&#x3D;𓅂+&#123;&#125;,𓆣&#x3D;𓂀</span><br><span class="line">[𓅂++],𓊝&#x3D;𓂀[𓇎&#x3D;𓅂],𓏢&#x3D;++𓇎+𓅂,𓆗&#x3D;𓊎[𓇎+𓏢</span><br><span class="line">],𓂀[𓆗+&#x3D;𓊎[𓅂]+(𓂀.𓁄+𓊎)[𓅂]+𓁄[𓏢]+𓆣+</span><br><span class="line">𓊝+𓂀[𓇎]+𓆗+𓆣+𓊎[𓅂]+𓊝][𓆗](𓁄[𓅂]+𓁄[</span><br><span class="line">𓇎]+𓂀[𓏢]+𓊝+𓆣+&#39;&#96;𓅂 𓏢 𓂀 𓁄 𓆣 𓊝 𓇎&#96;&#39;)&#96;&#96;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://gitee.com/top-xu/imgaes/raw/master/20200523160539.png" alt="xss_2019_5_20_1"></p>
-<p>首先我通过朋友的输入法以及HIEROGLYPHS.js 确认了是象形文字</p>
-<p><img src="https://gitee.com/top-xu/imgaes/raw/master/20200523160547.png" alt="1"></p>
-<p>然后群友说本质还是unicode，并且给了一个链接<a href=""http://www.unicode.org/charts/PDF/U13000.pdf"">pdf</a></p>
-<p>通过替换我得到了一下payload</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">u13142&#x3D;&#39;&#39;,u13080&#x3D;!u13142+u13142,u13044&#x3D;!u13080+u13142,u1328E&#x3D;u13142+&#123;&#125;,u131A3&#x3D;u13080</span><br><span class="line">[u13142++],u1329D&#x3D;u13080[u131CE&#x3D;u13142],u133E2&#x3D;++u131CE+u13142,u13197&#x3D;u1328E[u131CE+u133E2</span><br><span class="line">],u13080[u13197+&#x3D;u1328E[u13142]+(u13080.u13044+u1328E)[u13142]+u13044[u133E2]+u131A3+</span><br><span class="line">u1329D+u13080[u131CE]+u13197+u131A3+u1328E[u13142]+u1329D][u13197](u13044[u13142]+u13044[</span><br><span class="line">u131CE]+u13080[u133E2]+u1329D+u131A3+&#39;&#96;𓅂 𓏢 𓂀 𓁄 𓆣 𓊝 𓇎&#96;&#39;)&#96;&#96;</span><br></pre></td></tr></table></figure>
-
-<p>我通过种种方法无法对该unicode进行还原</p>
-<p>于是我使用控制台开始调试</p>
-<p><img src="https://gitee.com/top-xu/imgaes/raw/master/20200523160556.png" alt="xss_2020-05-20_2"></p>
-<p>通过调试发现，这段代码是通过提取字符进行拼接最后提取出alert</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a&#x3D;&#39;&#39;,b&#x3D;!a+a,c&#x3D;!b+a,d&#x3D;a+&#123;&#125;,e&#x3D;b</span><br><span class="line">[a++],f&#x3D;b[g&#x3D;a],h&#x3D;++g+a,i&#x3D;d[g+h</span><br><span class="line">],b[i+&#x3D;d[a]+(b.c+d)[a]+c[h]+e+</span><br><span class="line">f+b[g]+i+e+d[a]+f][i](c[a]+c[</span><br><span class="line">g]+b[h]+f+e+&#39;&#96;test&#96;&#39;)&#96;&#96;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://gitee.com/top-xu/imgaes/raw/master/20200523160604.png" alt="xss_2020-05-20_3"></p>
-<p>结论</p>
-<p>​        该payload通过js原生机制进获取字符串，变量名使用象形文字，通过提取某个字符进行拼接，最后达到xss payload效果。</p>
+<p>通过查询文档后，发现可以通过服务器设置响应头，导致浏览器访问https</p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security</a></p>
+<p><a href="https://www.nginx.com/blog/http-strict-transport-security-hsts-and-nginx/" target="_blank" rel="noopener">https://www.nginx.com/blog/http-strict-transport-security-hsts-and-nginx/</a></p>
+<p>HSTS 有何作用</p>
+<p><img src="https://gitee.com/top-xu/imgaes/raw/master/20200524223948.png" alt="HTTP Strict Transport Security - KeyCDN Support"></p>
+<p>如图所示，当client访问http网站时，服务器响应的会是https网站。</p>
+<p>开始配置</p>
+<p><img src="https://gitee.com/top-xu/imgaes/raw/master/20200524233202.png" alt="image-20200524233159867"></p>
+<p>效果</p>
+<p><img src="https://gitee.com/top-xu/imgaes/raw/master/20200524231434.png" alt="image-20200524231425778"></p>
+<p><img src="https://gitee.com/top-xu/imgaes/raw/master/20200524231512.png" alt="image-20200524231508661"></p>
+<p>好处：保护网站流量，使攻击者很难拦截、修改或伪造用户与网站之间的流量。</p>
 
       
     </div>
@@ -351,8 +343,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/undefined/1176625443/" rel="next" title="browser-secure">
-                <i class="fa fa-chevron-left"></i> browser-secure
+              <a href="/undefined/3587073414/" rel="next" title="sql injection">
+                <i class="fa fa-chevron-left"></i> sql injection
               </a>
             
           </div>
@@ -360,10 +352,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/undefined/487084075/" rel="prev" title="xss analyze follow">
-                xss analyze follow <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -415,17 +403,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -467,22 +446,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#xss-analyze"><span class="nav-number">1.</span> <span class="nav-text">xss-analyze</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
