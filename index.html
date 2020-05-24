@@ -298,25 +298,14 @@
 
       
         
-          
-            <p>​      为什么会记录HSTS，是因为我在做nginx代理服务器时，我做了重定向，但是还是存在某些浏览器访问，不进行跳转。</p>
-<p> nginx 80端口 配置如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen 80;</span><br><span class="line">    listen [::]:80;</span><br><span class="line"></span><br><span class="line">    server_name _;</span><br><span class="line"></span><br><span class="line">    location &#x2F; &#123;</span><br><span class="line">        return 301 https:&#x2F;&#x2F;$http_host$request_uri;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>通过查询文档后，发现可以通过服务器设置响应头，导致浏览器访问https</p>
-<p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security</a></p>
-<p><a href="https://www.nginx.com/blog/http-strict-transport-security-hsts-and-nginx/" target="_blank" rel="noopener">https://www.nginx.com/blog/http-strict-transport-security-hsts-and-nginx/</a></p>
-<p>HSTS 有何作用</p>
-<p><img src="https://gitee.com/top-xu/imgaes/raw/master/20200524223948.png" alt="HTTP Strict Transport Security - KeyCDN Support"></p>
-<p>如图所示，当client访问http网站时，服务器响应的会是https网站。</p>
-<p>开始配置</p>
-<p><img src="https://gitee.com/top-xu/imgaes/raw/master/20200524233202.png" alt="image-20200524233159867"></p>
-<p>效果</p>
-<p><img src="https://gitee.com/top-xu/imgaes/raw/master/20200524231434.png" alt="image-20200524231425778"></p>
-<p><img src="https://gitee.com/top-xu/imgaes/raw/master/20200524231512.png" alt="image-20200524231508661"></p>
-<p>好处：保护网站流量，使攻击者很难拦截、修改或伪造用户与网站之间的流量。</p>
-
-          
+          <p>​      为什么会记录HSTS，是因为我在做nginx代理服务器时，我做了重定向，但是还是存在某些浏览器访问，不进行跳转。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/undefined/3347610704/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
