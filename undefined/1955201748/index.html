@@ -79,21 +79,18 @@
 
 
 
-<meta name="description" content="​      为什么会记录HSTS，是因为我在做nginx代理服务器时，我做了重定向，但是还是存在某些浏览器访问，不进行跳转。">
+<meta name="description" content="CORSmac 由于改系统重装了，笔记丢了，重新写一下 概念在之前的browser-secure 环境搭建mamp 直接搭建完事">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HTTP Strict Transport Security">
-<meta property="og:url" content="https://top-xu.github.io/undefined/3347610704/index.html">
+<meta property="og:title" content="re-cors.md">
+<meta property="og:url" content="https://top-xu.github.io/undefined/1955201748/index.html">
 <meta property="og:site_name" content="sec eng">
-<meta property="og:description" content="​      为什么会记录HSTS，是因为我在做nginx代理服务器时，我做了重定向，但是还是存在某些浏览器访问，不进行跳转。">
-<meta property="og:image" content="https://gitee.com/top-xu/imgaes/raw/master/20200524223948.png">
-<meta property="og:image" content="https://gitee.com/top-xu/imgaes/raw/master/20200525112825.png">
-<meta property="og:image" content="https://gitee.com/top-xu/imgaes/raw/master/20200524231434.png">
-<meta property="og:image" content="https://gitee.com/top-xu/imgaes/raw/master/20200524231512.png">
-<meta property="article:published_time" content="2020-05-24T14:23:32.000Z">
-<meta property="article:modified_time" content="2020-05-25T03:28:34.117Z">
+<meta property="og:description" content="CORSmac 由于改系统重装了，笔记丢了，重新写一下 概念在之前的browser-secure 环境搭建mamp 直接搭建完事">
+<meta property="og:image" content="https://gitee.com/top-xu/imgaes/raw/master/20200626022143.png">
+<meta property="article:published_time" content="2020-06-25T18:15:22.000Z">
+<meta property="article:modified_time" content="2020-06-25T18:21:55.720Z">
 <meta property="article:author" content="luckyX">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/top-xu/imgaes/raw/master/20200524223948.png">
+<meta name="twitter:image" content="https://gitee.com/top-xu/imgaes/raw/master/20200626022143.png">
 
 
 
@@ -123,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://top-xu.github.io/undefined/3347610704/"/>
+  <link rel="canonical" href="https://top-xu.github.io/undefined/1955201748/"/>
 
 
 
 
 
-  <title>HTTP Strict Transport Security | sec eng</title>
+  <title>re-cors.md | sec eng</title>
   
 
 
@@ -236,7 +233,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://top-xu.github.io/undefined/3347610704/">
+    <link itemprop="mainEntityOfPage" href="https://top-xu.github.io/undefined/1955201748/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luckyX">
@@ -253,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">HTTP Strict Transport Security</h1>
+          <h1 class="post-title" itemprop="name headline">re-cors.md</h1>
         
 
         <div class="post-meta">
@@ -265,8 +262,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-24T22:23:32+08:00">
-                2020-05-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-26T02:15:22+08:00">
+                2020-06-26
               </time>
             
 
@@ -303,24 +300,10 @@
       
 
       
-        <p>​      为什么会记录HSTS，是因为我在做nginx代理服务器时，我做了重定向，但是还是存在某些浏览器访问，不进行跳转。</p>
-<a id="more"></a>
-
-<p> nginx 80端口 配置如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen 80;</span><br><span class="line">    listen [::]:80;</span><br><span class="line"></span><br><span class="line">    server_name _;</span><br><span class="line"></span><br><span class="line">    location &#x2F; &#123;</span><br><span class="line">        return 301 https:&#x2F;&#x2F;$http_host$request_uri;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>通过查询文档后，发现可以通过服务器设置响应头，导致浏览器访问https</p>
-<p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security</a></p>
-<p><a href="https://www.nginx.com/blog/http-strict-transport-security-hsts-and-nginx/" target="_blank" rel="noopener">https://www.nginx.com/blog/http-strict-transport-security-hsts-and-nginx/</a></p>
-<p>HSTS 有何作用</p>
-<p><img src="https://gitee.com/top-xu/imgaes/raw/master/20200524223948.png" alt="HTTP Strict Transport Security - KeyCDN Support"></p>
-<p>如图所示，当client访问http网站时，服务器响应的会是https网站。</p>
-<p>开始配置</p>
-<p><img src="https://gitee.com/top-xu/imgaes/raw/master/20200525112825.png" alt="image-20200525112655108"></p>
-<p>效果</p>
-<p><img src="https://gitee.com/top-xu/imgaes/raw/master/20200524231434.png" alt="image-20200524231425778"></p>
-<p><img src="https://gitee.com/top-xu/imgaes/raw/master/20200524231512.png" alt="image-20200524231508661"></p>
-<p>好处：保护网站流量，使攻击者很难拦截、修改或伪造用户与网站之间的流量。</p>
+        <h2 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h2><p>mac 由于改系统重装了，笔记丢了，重新写一下</p>
+<p>概念在之前的browser-secure</p>
+<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><p>mamp 直接搭建完事</p>
+<p><img src="https://gitee.com/top-xu/imgaes/raw/master/20200626022143.png" alt="image-20200626022136181"></p>
 
       
     </div>
@@ -345,8 +328,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/undefined/487084075/" rel="next" title="xss analyze follow">
-                <i class="fa fa-chevron-left"></i> xss analyze follow
+              <a href="/undefined/3962157174/" rel="next" title="use help">
+                <i class="fa fa-chevron-left"></i> use help
               </a>
             
           </div>
@@ -355,8 +338,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/undefined/1065315123/" rel="prev" title="pandas">
-                pandas <i class="fa fa-chevron-right"></i>
+              <a href="/undefined/1111041698/" rel="prev" title="recv generage.md">
+                recv generage.md <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -409,8 +392,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -452,6 +444,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CORS"><span class="nav-number">1.</span> <span class="nav-text">CORS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#环境搭建"><span class="nav-number">1.1.</span> <span class="nav-text">环境搭建</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
