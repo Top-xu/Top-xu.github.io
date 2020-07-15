@@ -88,8 +88,9 @@
 <meta property="og:image" content="https://gitee.com/top-xu/imgaes/raw/master/20200629163845.png">
 <meta property="og:image" content="https://gitee.com/top-xu/imgaes/raw/master/20200629164027.png">
 <meta property="og:image" content="https://gitee.com/top-xu/imgaes/raw/master/20200629165303.png">
+<meta property="og:image" content="https://gitee.com/top-xu/imgaes/raw/master/20200711232241.png">
 <meta property="article:published_time" content="2020-06-29T14:32:01.000Z">
-<meta property="article:modified_time" content="2020-06-29T14:32:31.146Z">
+<meta property="article:modified_time" content="2020-07-15T08:48:10.007Z">
 <meta property="article:author" content="luckyX">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://gitee.com/top-xu/imgaes/raw/master/20200629163845.png">
@@ -313,7 +314,20 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">执行如下命令</span><br><span class="line">tor</span><br><span class="line">nyx</span><br><span class="line">privoxy</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://gitee.com/top-xu/imgaes/raw/master/20200629165303.png" alt="image-20200629165107405"></p>
-<h1 id="未完，后续通过全网扫描1080端口-验证，组成可用性较高的代理"><a href="#未完，后续通过全网扫描1080端口-验证，组成可用性较高的代理" class="headerlink" title="未完，后续通过全网扫描1080端口+验证，组成可用性较高的代理"></a>未完，后续通过全网扫描1080端口+验证，组成可用性较高的代理</h1>
+<h2 id="通过大量抓取可用代理"><a href="#通过大量抓取可用代理" class="headerlink" title="通过大量抓取可用代理"></a>通过大量抓取可用代理</h2><p>使用clash作为代理软件，设置config.yaml,以下为攻击部分配置，可参考配置</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">proxy-groups:</span></span><br><span class="line">  <span class="string">-name:</span> <span class="string">"attackSocks"</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">url-test</span></span><br><span class="line">    <span class="attr">proxies:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">s1</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">s2</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">s3</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">s4</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">s5</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">"https://www.attack.com"</span></span><br><span class="line">    <span class="attr">interval:</span> <span class="number">300</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">DOMAIN-SUFFIX,attack.com,attackSocks</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">DOMAIN-KEYWORD,attack,attackSocks</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">DOMAIN,attack.com,attackSocks</span></span><br></pre></td></tr></table></figure>
+<p>日常使用时，使用一个配置，在需要对目标进行测试时，使用另外的配置<br><img src="https://gitee.com/top-xu/imgaes/raw/master/20200711232241.png" alt="clasx"></p>
+<h2 id="关于如何抓取代理"><a href="#关于如何抓取代理" class="headerlink" title="关于如何抓取代理"></a>关于如何抓取代理</h2><ul>
+<li>github<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://raw.githubusercontent.com/stamparm/aux/master/fetch-some-list.txt</span><br></pre></td></tr></table></figure></li>
+<li>通过fofa，shodan之类的搜索引擎，搜索当前区域内的1080等常见端口，进行抓取代理</li>
+<li>抓取肉鸡，配置代理，不建议，因为肉鸡与当前网络连通性是否良好不确定<h2 id="抓取代理后，进行验证"><a href="#抓取代理后，进行验证" class="headerlink" title="抓取代理后，进行验证"></a>抓取代理后，进行验证</h2>将抓取结果转成 json格式，[{“protocol”:”socks5”,”ip”:”5.189.153.156”,”prot”:1080},]<br>验证方式：curl -x socks5://ip:port <a href="http://www.google.com" target="_blank" rel="noopener">www.google.com</a><br>如抓取时，未对地区进行校验，建议使用geoip2的ip数据库，对ip地区进行检查，再进行代理验证<br>使用json格式(为啥使用json格式，是由于github上公开的代理返回格式为json格式，简单来说就是懒)，然后使用python3进行批量验证，之后会写一个完善的脚本就想代理获取检查<h2 id="代理获取"><a href="#代理获取" class="headerlink" title="代理获取"></a>代理获取</h2></li>
+<li>fofa 数据爬取(需要是会员，不然数据太少了，可用性太低)</li>
+<li>github代理提取</li>
+<li>各种公开免费代理</li>
+<li>批量抓取肉鸡自建<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -x socks5://127.0.0.1:1089 www.baidu.com</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">参考git项目(fetch-some-proxies)，懒得写了,把代理验证前的内容修改下，就可以了</span><br></pre></td></tr></table></figure></li>
+</ul>
+
       
     </div>
     
@@ -346,6 +360,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/undefined/3537377201/" rel="prev" title="burpsuite-note">
+                burpsuite-note <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -422,7 +440,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -459,7 +477,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#about-proxy-bypass"><span class="nav-number">1.</span> <span class="nav-text">about proxy bypass</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#未完，后续通过全网扫描1080端口-验证，组成可用性较高的代理"><span class="nav-number"></span> <span class="nav-text">未完，后续通过全网扫描1080端口+验证，组成可用性较高的代理</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#about-proxy-bypass"><span class="nav-number">1.</span> <span class="nav-text">about proxy bypass</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过大量抓取可用代理"><span class="nav-number">2.</span> <span class="nav-text">通过大量抓取可用代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于如何抓取代理"><span class="nav-number">3.</span> <span class="nav-text">关于如何抓取代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抓取代理后，进行验证"><span class="nav-number">4.</span> <span class="nav-text">抓取代理后，进行验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代理获取"><span class="nav-number">5.</span> <span class="nav-text">代理获取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">6.</span> <span class="nav-text">代码</span></a></li></ol></div>
             
 
           </div>
